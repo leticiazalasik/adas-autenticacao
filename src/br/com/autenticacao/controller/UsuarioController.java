@@ -132,4 +132,21 @@ private boolean validarId (int id) {
 		
 	}
 }
+
+public boolean realizarAutenticacao(String email, String senha) {
+    try {
+        GenericDAO dao = new UsuarioDAOImpl();
+         if (dao.realizarAutenticacao(email, senha) ==true) {
+        	 return true; 
+         } else { 
+        	 return false; 
+         }
+    } catch (Exception e) {
+        System.out.println("Erro na controller ao autenticar Usuário.");
+        e.printStackTrace();
+        return false; 
+    }
+}
+
+
 }
