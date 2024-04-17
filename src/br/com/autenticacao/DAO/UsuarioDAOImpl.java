@@ -106,7 +106,7 @@ private Connection conn;
 	public Boolean cadastrar(Object object) {
 		Usuario usuario = (Usuario) object; 
 		PreparedStatement stmt =null; // Para executar consultas parametrizadas. 
-		String sql = "INSERT INTO usuario (nome, email, senha, isAtivo) " + "VALUES (?,?,?,?) "; // esse ponto de interrogacao será inserido depois e substituido. depois do descricao eu poderia colocar , mais coisas e no ponto de interrogacao mais coisas 
+		String sql = "INSERT INTO usuario (nome, email, senha, isAtivo) " + "VALUES (?,?,MD5(?),?) "; // esse ponto de interrogacao será inserido depois e substituido. depois do descricao eu poderia colocar , mais coisas e no ponto de interrogacao mais coisas 
 		
 		try { 
 			stmt =conn.prepareStatement(sql); //atribuído à variável "stmt" um objeto PreparedStatement criado a partir da conexão "conn" e da string "sql". Isso indica que uma consulta parametrizada está sendo preparada para execução no banco de dados.

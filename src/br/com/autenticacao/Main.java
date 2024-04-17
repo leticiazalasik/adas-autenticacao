@@ -71,8 +71,8 @@ public class Main {
 		.concat(usuario.getNome())
 		.concat("\n")
 		.concat(String.valueOf(usuario.getEmail()))
-		.concat("\n")
-		.concat(Boolean.valueOf(usuario.getAtivo())); 
+		.concat("\n");
+		//.concat(Boolean.valueOf(usuario.getAtivo())); 
 	
 				}
 				JOptionPane.showMessageDialog(null, mensagemLista);
