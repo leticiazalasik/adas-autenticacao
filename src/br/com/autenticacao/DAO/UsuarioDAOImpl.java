@@ -1,5 +1,8 @@
 package br.com.autenticacao.DAO;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -192,58 +195,46 @@ private Connection conn;
 		
 	}		
 	
-@Override
-public Boolean realizarAutenticacao(String email, String senha) {
-		
 	
-		PreparedStatement stmt =null;  //Objeto criado,  usado quando precisamos executar comandos SQL pré-compilados e obter o resultado produzido.
-		Usuario usuario = null; //objeto produto
-		ResultSet rs =null; //objeto que representa um conjunto de dados recuperados de uma base de dados após a execução de uma consulta SQL. 
-		
-		
-		String sql = "SELECT id, nome, email, senha FROM usuario WHERE email=" + "(?)"; //Var para armazenar o select que vais er executado no banco 
-		
-		try { 
-			stmt =conn.prepareStatement(sql); //converter string em sql 
-		stmt.setString(1, email); // define o valor do primeiro parâmetro (índice 1) na consulta. O valor é o id fornecido.
-		stmt.executeQuery(); // executa a consulta preparada no banco de dados, mas o resultado da execução não está sendo armazenado.
-		rs = stmt.executeQuery(); //a consulta preparada é executada novamente e o resultado é armazenado em um objeto do tipo ResultSet chamado rs. O ResultSet contém os resultados da consulta realizada.
-		
-		if (rs.next()) { //resultado (ou seja, rs.next() retorna true):
-         usuario = new Usuario ();
-  		JOptionPane.showMessageDialog(null, "Usuário localizado!");
+	
+public Boolean realizarAutenticacao(String email, String senha) {
+	ResultSet rs = null;
+    PreparedStatement stmt = null;
 
-         usuario.setId(rs.getInt("id"));
-         usuario.setNome (rs.getString("nome")); 
-         usuario.setEmail (rs.getString("email")); //produto recebe valores das colunas “id” e “descricao” obtidos do ResultSet.
-         usuario.setSenha (rs.getString("senha")); //produto recebe valores das colunas “id” e “descricao” obtidos do ResultSet.
-
-         
-         if (usuario.getSenha().equals(senha)) { 
-       		JOptionPane.showMessageDialog(null, "Acesso liberado!");
-       		return true; 
-
-         } else { 
-       		JOptionPane.showMessageDialog(null, "Senha incorreta!");
-       		return false; 
-         }
-         } else { 
-    		return false; 
-
+    String sql = " SELECT id, nome FROM usuario WHERE "
+    		+ " email = ? " 
+    		+ " AND senha = MD5(?) ";
+    
+    try {
+       
+        stmt = conn.prepareStatement(sql);
+        stmt.setString(1, email);//1 equivale ao primeiro ponto de interrogacao e o pdouto,getDescricao é o que vai ser colocado no lugar do ponto de interrogaçao.  Aqui está sendo definido o valor do primeiro parâmetro da consulta preparada. O método setString está sendo usado para atribuir a descrição do produto (provavelmente obtida do objeto "produto") ao primeiro parâmetro da consulta.
+        stmt.setString(2, senha);
+        rs = stmt.executeQuery();
+        
+        if (rs.next()) {
+        	return true; 
+        	
+        } else { 
+        	return false; 
         }
-
-			} catch (SQLException ex) {
-			System.out.println("Problemas na DAO ao exibir usuário! Erro:" + ex.getMessage());
-			ex.printStackTrace();
-			return false; 
-		} finally { 
+        
+    } catch (Exception e) {
+        System.out.println("Erro na autenticação: " + e.getMessage());
+        e.printStackTrace();
+        return false;
+        
+    } finally { 
 			try { 
-				ConnectionFactory.closeConnection(conn, stmt, rs); 
+				
+				ConnectionFactory.closeConnection(conn, stmt); 
 			} catch (Exception ex) { 
 				System.out.println("Problemas ao fechar conexão! Erro:" + ex.getMessage());
 			}
 		}
-		
-	}
-	}
+}
+
+
+}
+
 

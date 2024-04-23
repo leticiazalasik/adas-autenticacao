@@ -1,5 +1,7 @@
 package br.com.autenticacao;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,11 +11,13 @@ import br.com.autenticacao.controller.UsuarioController;
 import br.com.autenticacao.model.Usuario;
 
 
+
 public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+		 
 
 		String menu=" "
 				.concat("-Opcoes- \n")
@@ -22,24 +26,17 @@ public class Main {
 				.concat("[3] Listar por ID\n")
 				.concat("[4] Excluir\n")
 				.concat("[5] Editar\n")
-				.concat("[6] Finalizar\n")
+				.concat("[6] Autenticar\n")
+				.concat("[7] Finalizar\n")
 				.concat("Digite a opção desejada: \n");
 		
 			String option = JOptionPane.showInputDialog(menu);
 			int optionInt = Integer.parseInt(option);
 
-			Usuario novoUsuario = new Usuario(); 
-			novoUsuario.setEmail(JOptionPane.showInputDialog("Email: "));
-			novoUsuario.setSenha(JOptionPane.showInputDialog("Senha: "));
-		
+			Usuario novoUsuario = new Usuario();    
+        
 		UsuarioController controller = new UsuarioController(); 
 		
-		if (controller.realizarAutenticacao(novoUsuario.getEmail(), novoUsuario.getSenha())==true) {
-			JOptionPane.showMessageDialog(null, "Usuário localizado");
-		} else { 
-			JOptionPane.showMessageDialog(null, "Usuário NÃO localizado");
-
-		}
 		
 		//Os outros métodosn
 		while (optionInt!=0) {
@@ -143,8 +140,16 @@ public class Main {
 					
 					controller.alterar(usuarioAlterado);
 					break; 
-					
+				
 				case 6: 
+					//Autenticar 
+					novoUsuario.setEmail(JOptionPane.showInputDialog("Email: "));
+					novoUsuario.setSenha(JOptionPane.showInputDialog("Senha: "));
+					
+					controller.realizarAutenticacao(novoUsuario.getEmail(), novoUsuario.getSenha()); 
+					break; 
+					
+				case 7: 
 					JOptionPane.showMessageDialog(null, "Sistema finalizado!");
 					break; 
 		
@@ -152,7 +157,7 @@ public class Main {
 						JOptionPane.showMessageDialog(null, "Opção inexistente \n Tente novamente!");
 						break; 
 				}
-			if (optionInt!=6) {
+			if (optionInt!=7) {
 			option = JOptionPane.showInputDialog(menu);
 			optionInt = Integer.parseInt(option);
 			} else { 

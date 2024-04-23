@@ -1,5 +1,7 @@
 package br.com.autenticacao.controller;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,20 +135,21 @@ private boolean validarId (int id) {
 	}
 }
 
-public boolean realizarAutenticacao(String email, String senha) {
+public void realizarAutenticacao(String email, String senha) {
     try {
-        GenericDAO dao = new UsuarioDAOImpl();
-         if (dao.realizarAutenticacao(email, senha) ==true) {
-        	 return true; 
-         } else { 
-        	 return false; 
-         }
+        UsuarioDAOImpl dao = new UsuarioDAOImpl();
+        if  (dao.realizarAutenticacao(email, senha)) { 
+        	JOptionPane.showMessageDialog(null, "Usuário autenticado com sucesso!");
+        } else { 
+        	JOptionPane.showMessageDialog(null, "Não foi possível autenticar usuário");
+        }
+         
     } catch (Exception e) {
         System.out.println("Erro na controller ao autenticar Usuário.");
         e.printStackTrace();
-        return false; 
     }
 }
+
 
 
 }
