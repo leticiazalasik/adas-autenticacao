@@ -11,7 +11,6 @@ import br.com.autenticacao.controller.UsuarioController;
 import br.com.autenticacao.model.Usuario;
 
 
-
 public class Main {
 
 	public static void main(String[] args) {
@@ -27,7 +26,9 @@ public class Main {
 				.concat("[4] Excluir\n")
 				.concat("[5] Editar\n")
 				.concat("[6] Autenticar\n")
-				.concat("[7] Finalizar\n")
+				.concat("[7] Desativar"
+						+ "\n")
+				.concat("[8] Finalizar\n")
 				.concat("Digite a opção desejada: \n");
 		
 			String option = JOptionPane.showInputDialog(menu);
@@ -68,17 +69,15 @@ public class Main {
 		
 					String mensagemLista=" "
 							.concat("-Lista Usuarios-")
-							.concat("\n")
-							.concat("Cód. Descrição"); 
-
-					for (Usuario produto : lista) {
+							.concat("\n");
+					for (Usuario usuario1 : lista) {
 						mensagemLista=mensagemLista
 			.concat("\n")
-			.concat(String.valueOf(produto.getId())) //concat só recebe string entao preciso converter 
-			.concat("            ")
-			.concat(usuario.getNome())
+			.concat(String.valueOf(usuario1.getId())) //concat só recebe string entao preciso converter 
+			.concat(" -")
+			.concat(usuario1.getNome())
 			.concat("\n")
-			.concat(String.valueOf(usuario.getEmail()))
+			.concat(String.valueOf(usuario1.getEmail()))
 			.concat("\n");
 			//.concat(Boolean.valueOf(usuario.getAtivo())); 
 		
@@ -150,6 +149,12 @@ public class Main {
 					break; 
 					
 				case 7: 
+					idModificar = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do produto a ser desativado: ")); 
+					novoUsuario.setId(idModificar);
+					controller.desativar(idModificar);
+					break; 
+					
+				case 8: 
 					JOptionPane.showMessageDialog(null, "Sistema finalizado!");
 					break; 
 		
@@ -157,7 +162,7 @@ public class Main {
 						JOptionPane.showMessageDialog(null, "Opção inexistente \n Tente novamente!");
 						break; 
 				}
-			if (optionInt!=7) {
+			if (optionInt!=8) {
 			option = JOptionPane.showInputDialog(menu);
 			optionInt = Integer.parseInt(option);
 			} else { 

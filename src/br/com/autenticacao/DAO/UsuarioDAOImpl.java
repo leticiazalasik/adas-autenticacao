@@ -234,6 +234,34 @@ public Boolean realizarAutenticacao(String email, String senha) {
 		}
 }
 
+public void desativar (int id) {
+
+	PreparedStatement stmt =null;  //Objeto criado,  usado quando precisamos executar comandos SQL pré-compilados e obter o resultado produzido.
+	
+	String sql = "UPDATE usuario SET isAtivo = 'false'" + "WHERE id= " + "(?)";  
+	
+	try { 
+		stmt =conn.prepareStatement(sql); //converter string em sql 
+		stmt.setInt(1, id);  // define o valor do primeiro parâmetro (índice 1) na consulta. O valor é o id fornecido.
+		stmt.executeUpdate(); //O método executeUpdate() é usado para executar comandos SQL que alteram os dados no banco de dados.
+		
+
+	} catch (SQLException ex) {
+		System.out.println("problemas na DAO ao excluir Produto! Erro: " + ex.getMessage());
+		ex.printStackTrace();
+		
+	} finally { 
+		try { 
+			ConnectionFactory.closeConnection(conn, stmt);
+		} catch (Exception ex) { 
+			System.out.println("Problemas ao fechar conexão! Erro: " + ex.getMessage());
+			ex.printStackTrace();
+		}
+	}
+
+
+}
+
 
 }
 

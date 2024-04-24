@@ -150,6 +150,19 @@ public void realizarAutenticacao(String email, String senha) {
     }
 }
 
-
+public boolean desativar (int id ){ //método para cadastrar produto 
+	
+	try {  
+		UsuarioDAOImpl dao = new UsuarioDAOImpl(); 
+		
+		dao.desativar(id);
+		return true; 
+		
+	} catch (Exception e) {  //Se der erro faz isso 
+		System.out.println("Erro ao controller ao desativar produto.");
+		e.printStackTrace();
+		return false; 
+}
+} 
 
 }
