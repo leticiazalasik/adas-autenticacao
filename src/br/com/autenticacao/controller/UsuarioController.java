@@ -72,15 +72,14 @@ public void cadastrar(Usuario usuario){ //método para cadastrar usuario
 	}
 
 public boolean excluir(int id ){ //método para cadastrar usuario 
-	
+	GenericDAO dao = new UsuarioDAOImpl();
 	try {  
-		GenericDAO dao = new UsuarioDAOImpl(); 
-		if (validarId(usuario.getId())==false) {
+		if (!validarId(id)) {
 				
 		return false; 
 		} 
 		
-		dao.excluir(id);
+		usuario.excluir(id);
 		return true; 
 		
 	} catch (Exception e) {  //Se der erro faz isso 

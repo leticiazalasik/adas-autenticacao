@@ -13,18 +13,18 @@ public class Usuario {
 	private String nome;
 	private String email;
 	private String senha;
-	private Boolean ativo;
+	private Boolean isativo;
 
 	public Usuario() {
 
 	}
 
-	public Usuario(int id, String nome, String email, String senha, Boolean ativo) {
+	public Usuario(int id, String nome, String email, String senha, Boolean isativo) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
-		this.ativo = ativo;
+		this.isativo = isativo;
 	}
 
 	public int getId() {
@@ -59,12 +59,12 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public Boolean getAtivo() {
-		return ativo;
+	public Boolean getisativo() {
+		return isativo;
 	}
 
-	public void setAtivo(Boolean ativo) {
-		this.ativo = ativo;
+	public void setisativo(Boolean isativo) {
+		this.isativo = isativo;
 	}
 
     

@@ -37,7 +37,7 @@ private Connection conn;
 		PreparedStatement stmt =null;  //Objeto criado 
 		ResultSet rs = null; //Objeto criado 
 		
-		String sql = "SELECT id, nome, email FROM usuario ORDER BY nome"; //Var para armazenar o select que vais er executado no banco 
+		String sql = "SELECT id, nome, email, isativo FROM usuario ORDER BY nome"; //Var para armazenar o select que vais er executado no banco 
 		
 		try { 
 			stmt = conn.prepareStatement(sql);  //aqui o objetivo é transformar o sql em algo que relamwente vai ser lido pelo banco, uma sql executável, é isso que o prepareStatemet faz
@@ -47,6 +47,8 @@ private Connection conn;
 				usuario.setId(rs.getInt("id"));
 				usuario.setNome(rs.getString("nome"));
 				usuario.setEmail(rs.getString("email"));
+				usuario.setisativo(rs.getBoolean("isativo"));
+
 
 				lista.add(usuario);
 			}
@@ -109,14 +111,14 @@ private Connection conn;
 	public Boolean cadastrar(Object object) {
 		Usuario usuario = (Usuario) object; 
 		PreparedStatement stmt =null; // Para executar consultas parametrizadas. 
-		String sql = "INSERT INTO usuario (nome, email, senha, isAtivo) " + "VALUES (?,?,MD5(?),?) "; // esse ponto de interrogacao será inserido depois e substituido. depois do descricao eu poderia colocar , mais coisas e no ponto de interrogacao mais coisas 
+		String sql = "INSERT INTO usuario (nome, email, senha, isativo) " + "VALUES (?,?,MD5(?),?) "; // esse ponto de interrogacao será inserido depois e substituido. depois do descricao eu poderia colocar , mais coisas e no ponto de interrogacao mais coisas 
 		
 		try { 
 			stmt =conn.prepareStatement(sql); //atribuído à variável "stmt" um objeto PreparedStatement criado a partir da conexão "conn" e da string "sql". Isso indica que uma consulta parametrizada está sendo preparada para execução no banco de dados.
 			stmt.setString(1, usuario.getNome());
 			stmt.setString(2, usuario.getEmail());//1 equivale ao primeiro ponto de interrogacao e o pdouto,getDescricao é o que vai ser colocado no lugar do ponto de interrogaçao.  Aqui está sendo definido o valor do primeiro parâmetro da consulta preparada. O método setString está sendo usado para atribuir a descrição do produto (provavelmente obtida do objeto "produto") ao primeiro parâmetro da consulta.
 			stmt.setString(3, usuario.getSenha());
-			stmt.setBoolean(4, usuario.getAtivo());
+			stmt.setBoolean(4, usuario.getisativo());
 			
 			stmt.execute(); // só executa sem um retorno execute query porque nao precis mostrar resultados de volta 
 			return true; 
@@ -139,7 +141,7 @@ private Connection conn;
 		
 		Usuario usuario = (Usuario) object; 
 		PreparedStatement stmt =null; // Para executar consultas parametrizadas. 
-		String sql = "UPDATE usuario (nome, email, senha, isAtivo) " 
+		String sql = "UPDATE usuario (nome, email, senha, isativo) " 
 		+ "VALUES (?,?,?,?,?) " 
 		+ "WHERE id= ?";
 		
@@ -148,7 +150,7 @@ private Connection conn;
 			stmt.setString(1, usuario.getNome());
 			stmt.setString(2, usuario.getEmail());//1 equivale ao primeiro ponto de interrogacao e o pdouto,getDescricao é o que vai ser colocado no lugar do ponto de interrogaçao.  Aqui está sendo definido o valor do primeiro parâmetro da consulta preparada. O método setString está sendo usado para atribuir a descrição do produto (provavelmente obtida do objeto "produto") ao primeiro parâmetro da consulta.
 			stmt.setString(3, usuario.getSenha());
-			stmt.setBoolean(4, usuario.getAtivo());
+			stmt.setBoolean(4, usuario.getisativo());
 			
 			stmt.execute(); // só executa sem um retorno execute query porque nao precis mostrar resultados de volta 
 			return true; 
@@ -171,7 +173,7 @@ private Connection conn;
 
 			PreparedStatement stmt =null;  //Objeto criado,  usado quando precisamos executar comandos SQL pré-compilados e obter o resultado produzido.
 			
-			String sql = "DELETE FROM usuario WHERE id= "+ "(?)"; 
+			String sql = "DELETE FROM usuario WHERE id= (?)"; 
 			
 			try { 
 				stmt =conn.prepareStatement(sql); //converter string em sql 

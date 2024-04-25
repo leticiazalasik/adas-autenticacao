@@ -50,10 +50,7 @@ public class Main {
 					novoUsuario.setNome(JOptionPane.showInputDialog("Nome: "));
 					novoUsuario.setEmail(JOptionPane.showInputDialog("Email: "));
 					novoUsuario.setSenha(JOptionPane.showInputDialog("Senha: "));
-					String input = JOptionPane.showInputDialog("Ativo/inativo: ");
-					boolean isAtivo = "ativo".equalsIgnoreCase(input);
-					novoUsuario.setAtivo(isAtivo);
-
+					novoUsuario.setisativo(Boolean.valueOf(JOptionPane.showInputDialog("Ativo (true/false): ")));					
 
 					controller.cadastrar(novoUsuario);
 					break; 
@@ -78,6 +75,8 @@ public class Main {
 			.concat(usuario1.getNome())
 			.concat("\n")
 			.concat(String.valueOf(usuario1.getEmail()))
+			.concat("\n")
+			.concat(String.valueOf("Ativo? "+ (usuario1.getisativo())))
 			.concat("\n");
 			//.concat(Boolean.valueOf(usuario.getAtivo())); 
 		
@@ -98,7 +97,9 @@ public class Main {
 								.concat(String.valueOf(usuarioEncontrado.getId())) //concat só recebe string entao preciso converter 
 								.concat("\n")
 								.concat("Nome: ")
-								.concat(usuarioEncontrado.getNome()); 
+								.concat(usuarioEncontrado.getNome())
+								.concat(String.valueOf("Ativo? "+ (usuarioEncontrado.getisativo())))
+								.concat("\n");
 						
 						JOptionPane.showMessageDialog(null, mensagemLista2);
 					} else {
@@ -134,7 +135,7 @@ public class Main {
 					usuarioAlterado.setSenha(JOptionPane.showInputDialog("Senha: "));
 					String inputAlterado = JOptionPane.showInputDialog("Ativo/inativo: ");
 					boolean isAtivoAlterado = "ativo".equalsIgnoreCase(inputAlterado);
-					usuarioAlterado.setAtivo(isAtivoAlterado);
+					usuarioAlterado.setisativo(isAtivoAlterado);
 
 					
 					controller.alterar(usuarioAlterado);
