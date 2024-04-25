@@ -156,7 +156,7 @@ public class Main {
 					break; 
 					
 				case 8: 
-					JOptionPane.showMessageDialog(null, "Sistema finalizado!");
+					JOptionPane.showMessageDialog(null, "Sistema finalizado!!!");
 					break; 
 		
 					default: 
@@ -170,7 +170,7 @@ public class Main {
 				break; 
 			}
 			}
-
+//
 
 		
 	}
