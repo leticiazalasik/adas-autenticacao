@@ -75,7 +75,7 @@ private Connection conn;
 		ResultSet rs =null; //objeto que representa um conjunto de dados recuperados de uma base de dados após a execução de uma consulta SQL. 
 		
 		
-		String sql = "SELECT id, nome, email FROM usuario WHERE id=" + "(?)"; //Var para armazenar o select que vais er executado no banco 
+		String sql = "SELECT id, nome, email, isativo FROM usuario WHERE id=" + "(?)"; //Var para armazenar o select que vais er executado no banco 
 		
 		try { 
 			stmt =conn.prepareStatement(sql); //converter string em sql 
@@ -88,7 +88,8 @@ private Connection conn;
          usuario.setId(rs.getInt("id"));
          usuario.setNome (rs.getString("nome")); 
          usuario.setEmail (rs.getString("email")); //produto recebe valores das colunas “id” e “descricao” obtidos do ResultSet.
- 		JOptionPane.showMessageDialog(null, "Usuário localizado!");
+         usuario.setisativo (rs.getBoolean("isativo")); //produto recebe valores das colunas “id” e “descricao” obtidos do ResultSet.
+         JOptionPane.showMessageDialog(null, "Usuário localizado!");
 
         }
 
@@ -173,7 +174,7 @@ private Connection conn;
 
 			PreparedStatement stmt =null;  //Objeto criado,  usado quando precisamos executar comandos SQL pré-compilados e obter o resultado produzido.
 			
-			String sql = "DELETE FROM usuario WHERE id= (?)"; 
+			String sql = "DELETE FROM usuario WHERE id= "+ "(?)"; 
 			
 			try { 
 				stmt =conn.prepareStatement(sql); //converter string em sql 

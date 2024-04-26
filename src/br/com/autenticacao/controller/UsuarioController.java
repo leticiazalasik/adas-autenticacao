@@ -72,20 +72,20 @@ public void cadastrar(Usuario usuario){ //método para cadastrar usuario
 	}
 
 public boolean excluir(int id ){ //método para cadastrar usuario 
-	GenericDAO dao = new UsuarioDAOImpl();
-	try {  
-		if (!validarId(id)) {
-				
-		return false; 
-		} 
-		
-		usuario.excluir(id);
-		return true; 
-		
-	} catch (Exception e) {  //Se der erro faz isso 
-		System.out.println("Erro ao controller ao Excluir usuário.");
-		e.printStackTrace();
-		return false; 
+	try { 
+	GenericDAO dao = new UsuarioDAOImpl(); 
+	if (!validarId(id)) {
+		 System.out.println("ID inválido. Não é possível excluir o usuário.");
+	return false; 
+	} 
+	
+	dao.excluir(id);
+	return true; 
+	
+ } catch (Exception e) {  //Se der erro faz isso 
+	System.out.println("Erro ao controller ao Excluir produto Produto.");
+	e.printStackTrace();
+	return false; 
 }
 } 
 

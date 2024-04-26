@@ -98,8 +98,8 @@ public class Main {
 								.concat("\n")
 								.concat("Nome: ")
 								.concat(usuarioEncontrado.getNome())
-								.concat(String.valueOf("Ativo? "+ (usuarioEncontrado.getisativo())))
-								.concat("\n");
+								.concat("\n")
+								.concat(String.valueOf("Ativo? "+ (usuarioEncontrado.getisativo()))); 
 						
 						JOptionPane.showMessageDialog(null, mensagemLista2);
 					} else {
