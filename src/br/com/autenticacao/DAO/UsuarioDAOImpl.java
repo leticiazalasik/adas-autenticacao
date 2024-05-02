@@ -142,16 +142,17 @@ private Connection conn;
 		
 		Usuario usuario = (Usuario) object; 
 		PreparedStatement stmt =null; // Para executar consultas parametrizadas. 
-		String sql = "UPDATE usuario (nome, email, senha, isativo) " 
-		+ "VALUES (?,?,?,?,?) " 
-		+ "WHERE id= ?";
+		String sql = "UPDATE usuario SET nome=?, email=?, senha=?, isativo=? WHERE id=?";
 		
+
 		try { 
 			stmt =conn.prepareStatement(sql); //atribuído à variável "stmt" um objeto PreparedStatement criado a partir da conexão "conn" e da string "sql". Isso indica que uma consulta parametrizada está sendo preparada para execução no banco de dados.
 			stmt.setString(1, usuario.getNome());
 			stmt.setString(2, usuario.getEmail());//1 equivale ao primeiro ponto de interrogacao e o pdouto,getDescricao é o que vai ser colocado no lugar do ponto de interrogaçao.  Aqui está sendo definido o valor do primeiro parâmetro da consulta preparada. O método setString está sendo usado para atribuir a descrição do produto (provavelmente obtida do objeto "produto") ao primeiro parâmetro da consulta.
 			stmt.setString(3, usuario.getSenha());
 			stmt.setBoolean(4, usuario.getisativo());
+			stmt.setInt(5, usuario.getId());
+
 			
 			stmt.execute(); // só executa sem um retorno execute query porque nao precis mostrar resultados de volta 
 			return true; 

@@ -126,10 +126,10 @@ public class Main {
 		
 				case 5: 
 					//Alterar 
-					idModificar = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do produto a ser modificado: ")); 
-					String  novaDescricao = JOptionPane.showInputDialog("Digite a nova descrição: "); 
-
 					Usuario usuarioAlterado = new Usuario(); 
+
+					idModificar = Integer.parseInt(JOptionPane.showInputDialog("Digite o id do produto a ser modificado: ")); 
+					usuarioAlterado.setId(idModificar);
 					usuarioAlterado.setNome(JOptionPane.showInputDialog("Nome: "));
 					usuarioAlterado.setEmail(JOptionPane.showInputDialog("Email: "));
 					usuarioAlterado.setSenha(JOptionPane.showInputDialog("Senha: "));
