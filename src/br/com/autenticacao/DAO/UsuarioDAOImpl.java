@@ -266,6 +266,41 @@ public void desativar (int id) {
 
 }
 
+public List<Object> listarAtivos() {
+	List <Object> lista = new ArrayList<Object>(); //Lista que vai retornar 
+	PreparedStatement stmt =null;  //Objeto criado 
+	ResultSet rs = null; //Objeto criado 
+	
+	String sql = "SELECT id, nome, email, isativo FROM usuario WHERE isativo=true ORDER BY nome"; //Var para armazenar o select que vais er executado no banco 
+	
+	try { 
+		stmt = conn.prepareStatement(sql);  //aqui o objetivo é transformar o sql em algo que relamwente vai ser lido pelo banco, uma sql executável, é isso que o prepareStatemet faz
+		rs = stmt.executeQuery(); //esse aqui é o que vai lá no banco e realmente executa, ele vais er armazenado aqui no rs 
+		while(rs.next()) { //enquanto houver linha nessa tabela ele vai pulando 
+			Usuario usuario = new Usuario(); //Crio um novo produto lá da classe produto 
+			usuario.setId(rs.getInt("id"));
+			usuario.setNome(rs.getString("nome"));
+			usuario.setEmail(rs.getString("email"));
+			usuario.setisativo(rs.getBoolean("isativo"));
+
+
+			lista.add(usuario);
+		}
+		
+	} catch (SQLException ex) {
+		System.out.println("Problemas na DAO ao listar usuário! Erro:" + ex.getMessage());
+		ex.printStackTrace();
+	} finally { 
+		try { 
+			ConnectionFactory.closeConnection(conn, stmt, rs);
+		} catch (Exception ex) { 
+			System.out.println("Problemas ao fechar conexão! Erro:" + ex.getMessage());
+		}
+	}
+	
+	return lista; 
+}
+
 
 }
 

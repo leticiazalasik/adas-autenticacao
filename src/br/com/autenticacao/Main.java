@@ -26,10 +26,10 @@ public class Main {
 				.concat("[4] Excluir\n")
 				.concat("[5] Editar\n")
 				.concat("[6] Autenticar\n")
-				.concat("[7] Desativar"
-						+ "\n")
-				.concat("[8] Finalizar\n")
-				.concat("Digite a opção desejada: \n");
+				.concat("[7] Desativar\n"
+				.concat("[8] Listar usuários ativos\n")
+				.concat("[9] Finalizar\n")
+				.concat("Digite a opção desejada: \n"));
 		
 			String option = JOptionPane.showInputDialog(menu);
 			int optionInt = Integer.parseInt(option);
@@ -156,14 +156,41 @@ public class Main {
 					break; 
 					
 				case 8: 
+					usuario = new Usuario(); 
+
+					lista = controller.listarAtivos();
+
+		
+					String mensagemLista1=" "
+							.concat("-Lista Usuarios ATIVOS -")
+							.concat("\n");
+					for (Usuario usuario1 : lista) {
+						mensagemLista1=mensagemLista1
+			.concat("\n")
+			.concat(String.valueOf(usuario1.getId())) //concat só recebe string entao preciso converter 
+			.concat(" -")
+			.concat(usuario1.getNome())
+			.concat("\n")
+			.concat(String.valueOf(usuario1.getEmail()))
+			.concat("\n")
+			.concat(String.valueOf("Ativo? "+ (usuario1.getisativo())))
+			.concat("\n");
+			//.concat(Boolean.valueOf(usuario.getAtivo())); 
+		
+					}
+					JOptionPane.showMessageDialog(null, mensagemLista1);
+					break; 
+					
+				case 9: 
 					JOptionPane.showMessageDialog(null, "Sistema finalizado.");
 					break; 
 		
 					default: 
 						JOptionPane.showMessageDialog(null, "Opção inexistente \n Tente novamente!");
 						break; 
+						
 				}
-			if (optionInt!=8) {
+			if (optionInt!=9) {
 			option = JOptionPane.showInputDialog(menu);
 			optionInt = Integer.parseInt(option);
 			} else { 

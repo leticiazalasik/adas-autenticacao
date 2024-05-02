@@ -164,4 +164,22 @@ public boolean desativar (int id ){ //método para cadastrar produto
 }
 } 
 
+public List<Usuario> listarAtivos(){ //método que retorna uma lista de objetos do tipo usuario 
+	
+	List<Usuario> listaUsuarios = new ArrayList<Usuario>(); //Inicializacao da lista 
+	try {  
+		UsuarioDAOImpl dao = new UsuarioDAOImpl(); 
+	
+		for (Object object : dao.listarAtivos()) {  //a lista aqui é aquela lá do UsuarioDAOImpl esses objetos são genericos 
+			listaUsuarios.add((Usuario) object); //Aqui converte os objetos genéricos pra objetos Usuarios 
+			
+		}
+		
+	} catch (Exception e) {  //Se der erro faz isso 
+		System.out.println("Erro na controller ao listar Usuário.");
+		e.printStackTrace();
+	}
+	
+	return listaUsuarios; 
+}
 }
