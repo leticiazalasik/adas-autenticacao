@@ -21,6 +21,3 @@ Além disso sào implemntados os seguintes métodos, escolhidos por menu:
 Esse projeto foi criado utilizando as tecnologias:
 ### :small_blue_diamond: JAVA - Eclipse
 ### :small_blue_diamond: SQL - Postgres
-
-##
-:construction: Repositório em andamento. 
